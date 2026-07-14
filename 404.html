@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="3;url=index.html">
+    <title>404 — 页面不存在 | 毒密码</title>
+    <link rel="icon" href="logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --bg-primary: #0a0a0f;
+        --bg-secondary: #12121a;
+        --accent-cyan: #00f0ff;
+        --accent-magenta: #ff00aa;
+        --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
+        --glow-magenta: 0 0 20px rgba(255, 0, 170, 0.3);
+        --font-mono: 'Orbitron', 'Courier New', monospace;
+        --font-cn: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    }
+
+    body {
+        font-family: var(--font-cn);
+        background: var(--bg-primary);
+        color: #e8e8f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    /* glitch noise background */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 240, 255, 0.03) 2px,
+            rgba(0, 240, 255, 0.03) 4px
+        );
+        pointer-events: none;
+        animation: scan 8s linear infinite;
+    }
+
+    @keyframes scan {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(4px); }
+    }
+
+    .container {
+        text-align: center;
+        position: relative;
+    }
+
+    /* big 404 */
+    .code {
+        font-family: var(--font-mono);
+        font-size: 120px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        color: var(--accent-cyan);
+        text-shadow: var(--glow-cyan), var(--glow-magenta);
+        position: relative;
+        animation: glitch 3s infinite;
+        line-height: 1;
+    }
+
+    @keyframes glitch {
+        0%, 90%, 100% { transform: none; }
+        92% { transform: translate(-2px, 1px); }
+        94% { transform: translate(2px, -1px); }
+        96% { transform: translate(-1px, 2px); }
+        98% { transform: translate(1px, -2px); }
+    }
+
+    .code::after {
+        content: '404';
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        color: var(--accent-magenta);
+        text-shadow: var(--glow-magenta);
+        opacity: 0.7;
+        clip-path: inset(0 0 60% 0);
+        animation: slice 4s steps(2) infinite;
+    }
+
+    @keyframes slice {
+        0% { clip-path: inset(0 0 60% 0); }
+        50% { clip-path: inset(30% 0 30% 0); }
+        100% { clip-path: inset(0 0 60% 0); }
+    }
+
+    .subtitle {
+        font-family: var(--font-cn);
+        font-size: 18px;
+        color: #8888a0;
+        margin-top: 16px;
+        letter-spacing: 0.05em;
+    }
+
+    .msg {
+        font-size: 14px;
+        color: #8888a0;
+        margin-top: 24px;
+    }
+
+    .msg .countdown {
+        color: var(--accent-cyan);
+        font-family: var(--font-mono);
+    }
+
+    .link {
+        display: inline-block;
+        margin-top: 32px;
+        padding: 12px 32px;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        color: var(--accent-cyan);
+        border: 1px solid var(--accent-cyan);
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s;
+        box-shadow: var(--glow-cyan);
+    }
+
+    .link:hover {
+        background: var(--accent-cyan);
+        color: var(--bg-primary);
+        box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+    }
+
+    /* logo */
+    .logo {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 24px;
+    }
+
+    /* mobile */
+    @media (max-width: 480px) {
+        .code { font-size: 64px; }
+        .subtitle { font-size: 14px; }
+        .msg { font-size: 12px; }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img class="logo" src="logo.svg" alt="毒密码">
+        <div class="code">404</div>
+        <p class="subtitle">页面不存在 / PAGE NOT FOUND</p>
+        <p class="msg"><span class="countdown" id="timer">3</span> 秒后自动返回首页</p>
+        <a class="link" href="index.html">立即返回 &rarr;</a>
+    </div>
+    <script>
+    var s = 3;
+    var el = document.getElementById('timer');
+    var t = setInterval(function() {
+        s--;
+        if (s <= 0) { clearInterval(t); location.href = 'index.html'; }
+        else { el.textContent = s; }
+    }, 1000);
+    </script>
+</body>
+</html>
